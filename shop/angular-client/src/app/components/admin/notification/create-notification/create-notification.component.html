@@ -1,0 +1,79 @@
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <form class=" m-auto mt-3 card p-3 mb-4">
+          <div class="form-group mb-2">
+            <label for="exampleInputEmail1">Header</label>
+            <input name="header" [(ngModel)]="notificationModel.header" type="text" class="form-control"
+              id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="enter header">
+            <small id="emailHelp" class="form-text text-muted"></small>
+          </div>
+          <div class="form-group mb-2">
+            <label for="exampleInputPassword1">Content</label>
+            <input name="content" [(ngModel)]="notificationModel.content" type="text" class="form-control"
+              id="exampleInputPassword1" placeholder="enter text">
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group mb-1">
+                <label for="exampleInputPassword1">Type</label>
+                <input [(ngModel)]="types" name="type" readonly class="form-control" id="exampleInputPassword1" />
+              </div>
+            </div>
+  
+            <div class="col-1 position-relative mt-3">
+              <button (click)="openModal()" class="btn btn-center btn-primary">+</button>
+            </div>
+  
+            <div class="form-group  mb-3">
+              <label for="exampleInputPassword1">User</label>
+              <input [(ngModel)]="selectedUsersString" name="user" readonly class="form-control" id="exampleInputPassword1" />
+            </div>
+  
+          </div>
+  
+  
+          <button (click)="createNotification()" type="submit" class="btn btn-primary">Create</button>
+        </form>
+        <app-notification-card  [notification]="notificationModel"></app-notification-card>
+      </div>
+      <div class="col">
+        <div class=" m-auto mt-3 card p-3">
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+            <input (input)="getUsers()" [(ngModel)]="query.terms" type="text" class="form-control" placeholder="Username" aria-label="Username"
+              aria-describedby="basic-addon1">
+          </div>
+          <!-- [ngStyle]="{'border-color':user.selected?'blue':'bs-secondary-color'}" -->
+          <div [ngClass]="{'border border-primary':user.selected}" (click)="selectUser(user)" class="card user-card mb-2" *ngFor="let user of users.list">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-3">
+                  <img [src]="user.url?user.url:'assets/user-placeholder.png'" class="card-img-top">
+                </div>
+                <div class="col">
+                  <div class="row ">
+                    <div class="col">
+                      <h5>{{user.first_name}}</h5>
+                    </div>
+                    <div class="col">
+                      <h5>{{user.last_name}}</h5>
+                    </div>
+                    <div class="row">
+                    <div class="col">
+                      <p>{{user.email}}</p>
+                    </div>
+                    <div class="col">
+                      <p><i class="bi bi-at"></i>{{user.username}}</p>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ngb-pagination class="m-auto" (pageChange)="pageChange($event)" [(page)]="query.page" [pageSize]="query.perPage" [collectionSize]="users.totalCount"/>
+        </div>
+      </div>
+    </div>
+  </div>

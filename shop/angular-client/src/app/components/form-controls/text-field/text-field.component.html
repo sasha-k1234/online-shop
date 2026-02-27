@@ -1,0 +1,23 @@
+<div class="mb-3">
+  <label for="input1" class="form-label">
+    {{label}}
+  </label>
+  <input [formControl]="control" [type]="type" class="form-control" name="title" />
+
+  <div class=" text-start text-danger" *ngIf="control.touched&&control.errors?.['required']">
+    required
+  </div>
+
+  <div class=" text-start text-danger" *ngIf="control.touched&&control.errors?.['minlength']">
+    too short
+  </div>
+
+  <div class=" text-start text-danger" *ngIf="control.touched&&control.errors?.['maxlength']">
+    too long
+  </div>
+
+  <div  class=" text-start text-danger" *ngIf="control.touched&&control.errors?.['min']">
+    number too low
+  </div>
+  
+</div>

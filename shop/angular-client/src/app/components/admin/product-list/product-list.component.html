@@ -1,0 +1,40 @@
+<button class="btn btn-secondary mb-2 mt-2 ms-2" (click)="updatePhotos()" >Update Photos</button>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">Title</th>
+			<th scope="col">Description</th>
+			<th scope="col">Price</th>
+		</tr>
+	</thead>
+	<tbody *ngFor="let item of list">
+		<!-- @for (country of countries; track country.name; let i = $index) { -->
+		<tr [ngClass]="{
+			'disabled':item.is_deleted,
+			'active':!item.is_deleted
+			}">
+			<th scope="row">{{ item.id }}</th>
+			<td>
+				<img [src]="item.mainImagePath?item.mainImagePath:'assets/product-placeholder.jpg'" class="me-2"
+					style="width: 40px" />
+				{{ item.name }}
+			</td>
+			<td>{{ item.description}}</td>
+			<td>{{ item.price}}</td>
+			<td><button class="btn btn-secondary"
+					(click)="!item.is_deleted?delProduct(item.id):activateProduct(item.id)"><i
+						[ngClass]="{'bi-trash fs-6':!item.is_deleted,'bi bi-arrow-counterclockwise':item.is_deleted}"></i></button>
+			</td>
+			<td>
+				<button (click)="openEditModal(item)" *ngIf="!item.is_deleted" class="btn btn-dark">
+					<i class="bi bi-pencil-fill"></i>
+				</button>
+			</td>
+		</tr>
+
+	</tbody>
+</table>
+<ngb-pagination class="d-flex justify-content-center mt-2" [pageSize]="10" [collectionSize]="totalCount" [(page)]="page"
+	(pageChange)="getProducts()"></ngb-pagination>

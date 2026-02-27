@@ -1,0 +1,10 @@
+.rect{
+    height: 43px;
+    width: 50px;
+    background-color: aquamarine;
+
+}
+
+.rect:hover{
+    background-color: red;
+}

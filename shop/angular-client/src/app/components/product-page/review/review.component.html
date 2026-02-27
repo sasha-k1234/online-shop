@@ -1,0 +1,40 @@
+<div class="row justify-content-center py-2 bo">
+    <div class="col-2">
+        <img [src]="review.user_photo_url?review.user_photo_url:'assets/user-placeholder.png'" width="30" height="30">
+    </div>
+
+    <div class="col" (mouseenter)="hoverReview = true" (mouseleave)="hoverReview = false">
+        <div class="text1">{{review.date|timeago}}</div>
+        <ngb-rating [readonly]="true" [(rate)]="review.rate" [max]="5">
+            <ng-template let-fill="fill" let-index="index">
+                <i class=" text-warning fs-5 bi-star{{ fill === 100 ? '-fill' : '' }}" [class.filled]="fill === 100"
+                    [class.low]="index < 3"></i>
+            </ng-template>
+        </ngb-rating>
+        <div *ngIf="!review.isMy||!editClicked" [innerHTML]="review.text"></div>
+
+        <ckeditor [editor]="Editor" [config]="config" *ngIf="review.isMy&&editClicked" [(ngModel)]="review.text"
+            [ngModelOptions]="{standalone: true}"></ckeditor>
+        <button class="btn btn-outline-secondary fs-5 me-2" (click)="replyClicked = !replyClicked"><i
+                class="bi bi-reply"></i></button>
+        <button class="btn btn-danger me-2" *ngIf="review.isMy&& hoverReview&&!editClicked"
+            (click)="deleteReview(review.id)"><i class="bi bi-trash"></i></button>
+        <button class="btn btn-primary me-2" *ngIf="review.isMy&&editClicked" (click)="editClicked = false"><i
+                class="bi bi-x"></i></button>
+        <button (click)="editReview(review.id, review.text)" class="btn btn-warning" *ngIf="review.isMy&&editClicked"><i
+                class="bi bi-check-lg"></i></button>
+        <button class="btn btn-warning me-2" *ngIf="review.isMy&&hoverReview&&!editClicked"
+            (click)="editClicked = true"><i class="bi bi-pencil-square "></i></button>
+            <div *ngFor="let reply of review.child">
+                <app-review [review]="reply"></app-review>
+            </div>
+           
+    </div>
+
+
+    <!-- <button class="btn btn-warning" (keyup)="((e) =>{ editReview(review.id, review.text,e)})($event)" *ngIf="review.isMy&&hoverReview"  (click)="editClicked = true"><i class="bi bi-pencil-square"></i></button> -->
+</div>
+<div *ngIf="replyClicked" class="input-group mb-2 w-50 h-50 m-auto">
+    <textarea [(ngModel)]="model.text" type="text" class="form-control " aria-describedby="button-addon2"></textarea>
+    <button (click)="reply()" class="btn btn-outline-secondary " type="button" id="button-addon2">Reply</button>
+</div>

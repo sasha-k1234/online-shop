@@ -1,0 +1,115 @@
+<div class="row px-4 px-lg-5 my-5">
+
+    <div class="col-4 gx-4 gx-lg-5 align-items-center border border-2  rounded p-3">
+        <div class="col-md-6"><img class="card-img-top mb-2 mb-md-0"
+                [src]="productModel.mainImagePath?productModel.mainImagePath:'assets/product-placeholder.jpg'"></div>
+        <div class="col-md-6">
+            <div class="text-center">
+                <ngb-rating [max]="5" [readonly]="true" [(rate)]="productModel.rating">
+                    <ng-template let-fill="fill" let-index="index">
+                        <i class=" text-warning fs-5 bi-star{{ fill === 100 ? '-fill' : '' }}"></i>
+                    </ng-template>
+                </ngb-rating>
+            </div>
+            <!-- <div class="small mb-1">Details:</div> -->
+            <h1 class="display-5 fw-bolder">{{productModel.name}}</h1>
+            <div class="fs-5 mb-3"><span class="text-decoration">{{productModel.price}}$</span></div>
+            <p [innerHTML]="productModel.description" class="lead"></p>
+            <div class="d-flex">
+                <button (click)="addToCart()" class="btn btn-outline-dark flex-shrink-0" type="button">
+                    <i class="bi-cart-fill me-1"></i>Add to cart</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+
+        <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+
+            <li [ngbNavItem]="1">
+                <button ngbNavLink>Charachteristics</button>
+                <ng-template ngbNavContent>
+
+                    <app-product-feature [data]="featuresArr"></app-product-feature>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="2">
+                <button ngbNavLink>Reviews</button>
+                <ng-template ngbNavContent>
+                    <div *ngIf="(accountService.currentUser$|async)"
+                        class="container justify-content-center mt-2 border border-2 p-2 rounded border-left border-right">
+                        <!-- <div class="d-flex justify-content-center pt-3 pb-2">  -->
+                        <!-- <textarea [disabled]="reviewExists"
+                                 type="text" name="text"
+                                placeholder="+ Add Review" class="form-control addtxt"></textarea> -->
+                        <!-- app.component.html -->
+                         
+                            <!-- [disabled]="reviewExists" -->
+                        <ckeditor  [(ngModel)]="reviewModel.text" [editor]="Editor"
+                            [config]="config"></ckeditor>
+                        <!-- </div> -->
+                        <div class="row">
+
+                            <div class="col p-2">
+                                <ngb-rating [disabled]="reviewExists" [(rate)]="reviewModel.rate" [max]="5">
+                                    <ng-template let-fill="fill" let-index="index">
+                                        <i class=" text-warning fs-5 bi-star{{ fill === 100 ? '-fill' : '' }}"
+                                            [class.filled]="fill === 100" [class.low]="index < 3"></i>
+                                    </ng-template>
+                                </ngb-rating>
+                            </div>
+                             <!-- [disabled]="reviewExists||!reviewModel.rate||!reviewModel.text" -->
+                            <div class="col-2 p-2 me-2">
+                                <button class="btn btn-success"
+                                   
+                                    (click)="postReview()">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    
+                    <app-review (onDelete)="deleteReview($event)" [review]="review"
+                        *ngFor="let review of reviewsArr"></app-review>
+                    <!-- <div *ngFor="let review of reviewsArr" class="row justify-content-center py-2 bo">
+                        <div class="col-2">
+                            <img [src]="review.user_photo_url?review.user_photo_url:'assets/user-placeholder.png'"
+                                width="30" height="30">
+                        </div>
+
+                        <div class="col" (mouseenter)="hoverReview = true" (mouseleave)="hoverReview = false">
+                            <div class="text1">{{review.date|timeago}}</div>
+                            <ngb-rating [readonly]="true" [(rate)]="review.rate" [max]="5">
+                                <ng-template let-fill="fill" let-index="index">
+                                    <i class=" text-warning fs-5 bi-star{{ fill === 100 ? '-fill' : '' }}"
+                                        [class.filled]="fill === 100" [class.low]="index < 3"></i>
+                                </ng-template>
+                            </ngb-rating>
+                            <div *ngIf="!review.isMy||!editClicked" [innerHTML]="review.text"></div>
+
+                            <ckeditor [editor]="Editor" [config]="config" *ngIf="review.isMy&&editClicked"
+                                 [(ngModel)]="review.text"></ckeditor>
+
+                            <button class="btn btn-danger me-2" *ngIf="review.isMy&& hoverReview&&!editClicked"
+                                (click)="deleteReview(review.id)"><i class="bi bi-trash"></i></button>
+                            <button class="btn btn-primary me-2" *ngIf="review.isMy&&editClicked"
+                                (click)="editClicked = false"><i class="bi bi-x"></i></button>
+                            <button (click)="editReview(review.id, review.text)" class="btn btn-warning"
+                                *ngIf="review.isMy&&editClicked"><i class="bi bi-check-lg"></i></button>
+                            <button class="btn btn-warning" *ngIf="review.isMy&&hoverReview&&!editClicked"
+                                (click)="editClicked = true"><i class="bi bi-pencil-square"></i></button>
+                            
+                            
+                        </div>
+
+                    </div> -->
+                </ng-template>
+            </li>
+        </ul>
+        <div [ngbNavOutlet]="nav" class="mt-2"></div>
+    </div>
+
+
+
+</div>

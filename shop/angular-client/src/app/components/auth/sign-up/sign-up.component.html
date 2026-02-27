@@ -1,0 +1,97 @@
+<main class="form-signin w-50 m-auto mt-5 card p-2">
+  <form [formGroup]="form">
+    <h1 class="h3 mb-3 fw-normal">Registration</h1>
+
+    <div class="form-floating mb-3">
+      <input name="email" [formControl]="form.controls.email" type="email" class="form-control " id="floatingInput"
+        placeholder="name@example.com" />
+      <label htmlFor="floatingInput">Email</label>
+      <div class=" text-start text-danger"
+        *ngIf="form.controls.email.touched&&form.controls.email.errors?.['required']">
+        required
+      </div>
+      <div class=" text-start text-danger" *ngIf="form.controls.email.touched&&form.controls.email.errors?.['email']">
+        Invalid Email
+      </div>
+    </div>
+    <div class="form-floating mb-3">
+      <input name="password" [formControl]="form.controls.password" type="password" class="form-control" id="floatingPassword"
+        placeholder="Password" />
+      <label htmlFor="floatingPassword">Password</label>
+      <div class="text-start text-danger" *ngIf="form.controls.password.touched&&form.controls.password.errors?.['required']">
+        required
+      </div>
+      <div class="text-start text-danger" *ngIf="form.controls.password.touched&&form.controls.password.errors?.['minlength']">
+        too short
+      </div>
+      <div class="text-start text-danger" *ngIf="form.controls.password.touched&&form.controls.password.errors?.['maxlength']">
+        too long
+      </div>
+      <div class="text-start text-danger" *ngIf="form.controls.password.touched&&form.controls.password.errors?.['checkUpperCase']">
+        password must contain at least one upperCase letter
+      </div>
+      <div class="text-start text-danger" *ngIf="form.controls.password.touched&&form.controls.password.errors?.['checkLowerCase']">
+        password must contain at least one lowerCase letter
+      </div>
+      <div class="text-start text-danger" *ngIf="form.controls.password.touched&&form.controls.password.errors?.['checkNumber']">
+        password must contain at least one digit 
+      </div>
+    </div>
+    <div class="form-floating">
+      <input name="password" [formControl]="form.controls.confirmPassword" type="password" class="form-control" id="floatingPassword"
+        placeholder="Password" />
+      <label htmlFor="floatingPassword">Confirm Password</label>
+      <div class="text-start text-danger" *ngIf="form.controls.confirmPassword.touched&&form.controls.confirmPassword.errors?.['checkMatch']">
+        passwords dont match
+      </div>
+    </div>
+    <div class="form-floating mt-3 mb-3">
+      <input name="password" [formControl]="form.controls.firstName" type="text" class="form-control" id="floatingPassword"
+        placeholder="Password" />
+        
+
+      <label htmlFor="floatingPassword">First Name</label>
+      <div class="text-start text-danger" *ngIf="form.controls.firstName.touched&&form.controls.firstName.errors?.['required']">
+        required
+      </div>
+      <div class="text-start text-danger"  *ngIf="form.controls.firstName.touched&&form.controls.firstName.errors?.['minlength']">
+        too short
+      </div>
+      <div class="text-start text-danger"  *ngIf="form.controls.firstName.touched&&form.controls.firstName.errors?.['maxlength']">
+        too long
+      </div>
+    </div>
+    <div class="form-floating mb-3">
+      <input name="password" [formControl]="form.controls.lastName" type="text" class="form-control" id="floatingPassword"
+        placeholder="Password" />
+      <label htmlFor="floatingPassword">Last Name</label>
+      <div class="text-start text-danger" *ngIf="form.controls.lastName.touched&&form.controls.lastName.errors?.['required']">
+        required
+      </div>
+      <div class="text-start text-danger"  *ngIf="form.controls.lastName.touched&&form.controls.lastName.errors?.['minlength']">
+        too short
+      </div>
+      <div class="text-start text-danger"  *ngIf="form.controls.lastName.touched&&form.controls.lastName.errors?.['maxlength']">
+        too long
+      </div>
+    </div>
+     </form>
+    <div class="form-floating">
+      <input name="birth_date" [(ngModel)]="model.birth_date" type="date" class="form-control" id="floatingPassword"
+        placeholder="Birth Date" />
+      <label htmlFor="floatingPassword">Birth Date</label>
+    </div>
+    <div class="form-check text-start my-3">
+      <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault" />
+      <label class="form-check-label" htmlFor="flexCheckDefault">
+        Remember me
+      </label>
+    </div>
+    <button [disabled]="!form.valid" class="btn btn-primary w-100 py-2" type="submit" (click)="register()">Sign
+      Up</button>
+    <div class="text-center mt-2">
+      <a [routerLink]="['/sign-in']" routerLinkActive="router-link-active">Sign In</a>
+    </div>
+    <p class="mt-2 mb-3 text-body-secondary text-center">© 2024</p>
+ 
+</main>

@@ -1,0 +1,16 @@
+<div>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Upload Photo</h4>
+        <button type="button" class="btn-close" (click)="activeModal.close()" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <div>
+            <input (change)="changeFile($event)" type="file" class="form-control">
+            <img [src]="imageSrc">
+        </div>
+        
+    </div>
+    <div class="modal-footer">
+        <button (click)="uploadPhoto()" type="button" class="btn btn-outline-dark" >Upload</button>
+    </div>
+</div>

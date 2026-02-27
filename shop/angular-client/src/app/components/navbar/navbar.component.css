@@ -1,0 +1,7 @@
+.cart-num{
+    font-size: 10px;
+}
+.notify-box::-webkit-scrollbar {
+    display: none;
+  }
+

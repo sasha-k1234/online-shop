@@ -1,0 +1,14 @@
+<div>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Add New Category</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div>
+            <input [(ngModel)]="category" placeholder="name" type="text" class="form-control">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="addCategory()">add</button>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+<div class="container mt-3">
+    <div class=" mb-2 groupBtnArea">
+        <button class="btn btn-secondary groupBtn" (click)="addGroup()">+</button>
+    </div>
+    <div *ngFor="let f of fieldsArr; let index = index">
+
+        <div *ngIf="!f.isGroup" (mouseenter)="f.hover = true" (mouseleave)="f.hover = false" class="row">
+            <app-feature (deleteClick)="deleteFields(index)" [model]="f"
+                (successClick)="successClick(index)"></app-feature>
+        </div>
+
+        <div *ngIf="f.isGroup" class="row" (mouseenter)="f.hover = true" (mouseleave)="f.hover = false">
+            <div class="col-4">
+                <input [readOnly]="f.isClicked" [(ngModel)]="f.name" class="form-control mb-3"
+                    placeholder="group title">
+            </div>
+            <div class="col">
+                <button [disabled]="disabled" (click)="addGroupFields(f)" *ngIf="f.isClicked"
+                    class="btn btn-primary me-2">+</button>
+                <button (click)="f.isClicked = false" *ngIf="f.hover&&f.isClicked" class="btn btn-warning me-2"><i
+                        class="bi bi-pencil-square"></i></button>
+                <button (click)="deleteFields(index)" *ngIf="f.hover&&f.isClicked" class="btn btn-danger me-2"><i
+                        class="bi bi-trash3"></i></button>
+                <button *ngIf="!f.isClicked" (click)="successClick(index)" [disabled]="!f.name"
+                    class="btn btn-primary"><i class="bi bi-check2"></i></button>
+            </div>
+            <div class="row" *ngFor="let g of f.groupItems; let index = index ">
+                <div class="row" *ngIf="!g.isGroup" (mouseenter)="g.hover = true" (mouseleave)="g.hover = false"
+                    class="row">
+                    <div class="col-1">
+                    </div>
+                    <div class="col">
+                        <app-feature [model]="g" (successClick)="successGroupClick(index,f)"
+                            (deleteClick)="deleteGroupFields(index,f)"></app-feature>
+                    </div>
+                    <!--                
+                    <div class="col">
+                        <input [readOnly]="g.isClicked" [(ngModel)]="g.name" class="form-control" type="text"
+                            placeholder="name" />
+                    </div>
+        
+        
+                    <div class="col mb-2">
+                        <input [readOnly]="g.isClicked" [(ngModel)]="g.value" class="form-control" type="text"
+                            placeholder="value">
+                    </div>
+        
+                    <div class="col ">
+                        <button *ngIf="!g.isClicked" (click)="successClick(index)" [disabled]="!g.name||!g.value"
+                            class="btn btn-primary me-2"><i class="bi bi-check2"></i></button>
+                        <button (click)="g.isClicked = false" *ngIf="g.hover&&g.isClicked" class="btn btn-warning me-2"><i
+                                class="bi bi-pencil-square"></i></button>
+                        <button (click)="deleteFields(index)" *ngIf="g.hover" class="btn btn-danger"><i
+                                class="bi bi-trash3"></i></button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-2 groupBtnArea">
+            <button class="btn btn-secondary groupBtn" (click)="addGroup()">+</button>
+        </div>
+    </div>
+    <!-- <div class="bg-danger div mb-2"></div> -->
+    <button [disabled]="disabled" (click)="addFields()" class="btn btn-dark me-3">Charachteristics +</button>
+
+</div>
+<pre>
+    {{fieldsArr|json}}
+</pre>
+
+<!-- <hr/>
+<div class="row mb-3">
+    <div class="col">
+        <div class="box1">
+        </div>
+    </div>
+    <div class="col">
+        <div class="box2"></div>
+    </div>
+    <div class="col">
+        <div class="box3"></div>
+    </div>
+</div>
+<hr/>
+<div class="row">
+    <div class="col">
+        <div class="box1">
+        </div>
+    </div>
+    <div class="col">
+        <div class="box2"></div>
+    </div>
+    <div class="col">
+        <div class="box3"></div>
+    </div>
+</div>
+
+<hr/> -->

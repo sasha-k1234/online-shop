@@ -1,0 +1,11 @@
+.btn-center{
+    position: absolute;
+    top: 55%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+}
+
+.user-card:hover{
+    transform: scale(1.2);
+    transition: 100ms;
+}

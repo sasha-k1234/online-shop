@@ -1,0 +1,13 @@
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+    <li [ngbNavItem]="1">
+        <button ngbNavLink>Create</button>
+        <ng-template ngbNavContent>
+            <app-create-notification></app-create-notification>
+        </ng-template>
+    </li>
+    <li [ngbNavItem]="2">
+        <button ngbNavLink>View</button>
+        <ng-template ngbNavContent><app-view-notifications></app-view-notifications></ng-template>
+    </li>
+</ul>
+<div [ngbNavOutlet]="nav" class="mt-2"></div>

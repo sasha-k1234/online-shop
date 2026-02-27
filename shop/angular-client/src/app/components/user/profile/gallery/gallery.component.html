@@ -1,0 +1,23 @@
+<ngb-carousel>
+    <ng-template ngbSlide *ngFor="let photo of images">
+        <div class="position-relative">
+            <div class="picsum-img-wrapper">
+                <img style="display: block; margin: auto;" [src]="photo.url" />
+            </div>
+            <div style="z-index: 10;" class="position-absolute top-0">
+                <div class="row-1 mb-2">
+                    <button (click)="setFavorite(photo.id)" class="btn btn-outline-warning"><i
+                            [ngClass]="{'bi bi-star':!photo.is_main,'bi bi-star-fill':photo.is_main}"
+                            class="bi bi-star"></i></button>
+                </div>
+                <div class="row-1">
+                    <button (click)="deletePhoto(photo.id)" class="btn btn-outline-danger"><i class="bi bi-trash3"></i></button>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="carousel-caption">
+            <h3>First slide label</h3>
+            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        </div> -->
+    </ng-template>
+</ngb-carousel>

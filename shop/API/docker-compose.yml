@@ -1,0 +1,50 @@
+version: '3'
+name: 'shop'
+networks: 
+  shop: 
+
+volumes:
+  db:
+  cache:
+    driver: local
+  grafana:
+
+services:
+  mysqldb:
+    image: mysql:5.7
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=mysqlpw
+      - MYSQL_DATABASE=store
+      # - MYSQL_USER=root
+      - MYSQL_PASSWORD=mysqlpw
+    ports:
+      - 3306:3306
+    volumes:
+      - db:/var/lib/mysql
+      
+  cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    # command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    volumes: 
+      - cache:/data
+
+  loki:
+    image: grafana/loki:3.3.2
+    ports:
+      - 3100:3100
+    volumes:
+      - ./loki-config.yml:/etc/loki/loki-config.yml
+    command: -config.file=/etc/loki/loki-config.yml
+
+  grafana: 
+    image:  grafana/grafana
+    ports:
+      - 3000:3000
+    volumes:  
+      - grafana:/var/lib/grafana
+    environment:
+      GF_PLUGINS_PREINSTALL: "grafana-clock-panel,grafana-simple-json-datasource"

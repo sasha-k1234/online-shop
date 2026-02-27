@@ -1,0 +1,28 @@
+<div class="w-50  selected-card {{class}}" (click)="redirectToDetailPage()">
+  <div class="card shadow-sm ">
+    <img class="card-img-top mx-auto mt-3"
+      [src]="productModel.mainImagePath?productModel.mainImagePath:'assets/product-placeholder.jpg'"
+      style="width: 100px;" />
+    <div class="card-body text-center">
+      <h4 class="card-title fs-3">{{productModel.name}}</h4>
+      <p [innerHTML]="productModel.description" class="card-text fs-4" style="margin-bottom: 0px;">
+      </p>
+      <ngb-rating [max]="5" [readonly]="true" [(rate)]="productModel.rating">
+        <ng-template let-fill="fill" let-index="index">
+          <i class="text-warning fs-5 bi-star{{ fill === 100 ? '-fill' : '' }}"></i>
+        </ng-template>
+      </ngb-rating>
+      <h3 className='card-text'>{{productModel.price}}$</h3>
+      <!-- <button (click)="addToCart()" class="btn btn-dark fw-medium"><i class="bi bi-bag-plus-fill"></i></button> -->
+      <button (click)="addToCart($event)" class="btn btn-dark flex-shrink-0" type="button">
+        <i class="bi-cart-fill me-1"></i>Add to cart</button>
+    </div>
+    <div style="top: 5px; left: 5px; position: absolute;">
+      <button
+        (click)="!productModel.is_favorite?setFavorite(productModel.id,$event):undoFavorite(productModel.id,$event)"
+        class="btn btn-outline-warning "><i
+          [ngClass]="{' bi-star':!productModel.is_favorite,' bi-star-fill':productModel.is_favorite}"
+          class="bi "></i></button>
+    </div>
+  </div>
+</div>

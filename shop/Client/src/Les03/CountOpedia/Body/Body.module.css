@@ -1,0 +1,8 @@
+.attack, .defence{
+    width: 250px;
+    height:250px;
+}
+
+.inlineBlock{
+    display: inline;
+}

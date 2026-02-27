@@ -1,0 +1,26 @@
+<div class="ms-1 container">
+    <div></div>
+    <!-- <h5>Charachteristics</h5> -->
+
+    <div *ngFor="let item of data">
+        <br>
+        <h5  *ngIf="item.groupItems">{{item.name}}:</h5>
+        <ul *ngIf="!item.groupItems" class=leaders>
+            <li><span>{{item.name}}</span>
+             <span >{{item.value}}</span></li>
+             </ul>
+        <!-- <span class="" *ngIf="!item.groupItems">{{item.name}}</span>
+        {{item.value}} -->
+
+        <div class="row" *ngFor="let o of item.groupItems">
+            <!-- <div class="col">{{o.name}} 
+                <div style="width: auto; height: 10px; display: inline-block; background-color: black;"></div>
+            </div>
+          <div class="col"> {{o.value}}</div>  -->
+          <ul class="leaders ms-3">
+            <li><span >{{o.name}}</span>
+             <span>{{o.value}}</span></li>
+             </ul>
+        </div>
+    </div>
+</div>

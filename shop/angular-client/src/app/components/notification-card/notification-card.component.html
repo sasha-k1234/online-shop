@@ -1,0 +1,36 @@
+<div class="card position-relative mb-2 " style="min-width: 200px;">
+  <span *ngIf="!notification.read_at" style="z-index: 1;"
+    class="position-absolute top-0 start-0 translate-middle 
+    badge border border-light rounded-circle bg-danger p-2"><span
+      class="visually-hidden"></span></span>
+  <div class="card-body position-relative">
+    <div class="row" style="height: 30px;">
+      <div class="col">
+        <h6>{{notification.header}}</h6>
+        <div class=" position-absolute top-0 end-0">
+
+          <!-- <p *ngIf="hover" (mouseenter)="hover = false" (mouseleave)="hover=true" class="me-1">{{notification.created_at|date:'dd.MM.yyyy'}}</p>  -->
+          <p (mouseenter)="hover = true" (mouseleave)="hover = false" class="me-1">
+            @if(hover){
+            {{notification.created_at|date:'dd.MM.yyyy'}}
+            } @else {
+            {{notification.created_at|timeago}}
+            }
+          </p>
+        </div>
+      </div>
+      <hr>
+    </div>
+    <div class="row">
+      <div class="col m-1">
+        <span class="border rounded-pill p-1 bg-light-subtle"
+          *ngFor="let type of notification.types">{{type.name}}</span>
+      </div>
+      <hr>
+    </div>
+    <div class="row">
+      <div class="col">
+        {{notification.content}}
+      </div>
+    </div>
+  </div>

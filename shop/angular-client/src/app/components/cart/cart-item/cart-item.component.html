@@ -1,0 +1,27 @@
+<div class="col">
+    <div class="card shadow-sm h-100 ">
+        <img class="card-img-top  mx-auto mt-3 rounded "
+            [src]="cartModel.product.mainImagePath ? cartModel.product.mainImagePath:'assets/product-placeholder.jpg'"
+            style=" width: 15rem" />
+        <div class="card-body  ">
+            <h4 class="card-title text-center">
+                {{cartModel.product.name}}
+            </h4>
+            <h5 class="card-text m-3">
+                {{cartModel.product.price}}$
+            </h5>
+            <div class="d-flex justify-content-between mb-4">
+                <button (click)="incCart()" class="btn btn-dark">
+                    <i class="bi bi-plus"></i>
+                </button>
+                <h4 class="card-text ">Quantity: {{cartModel.quantity}} </h4>
+                <button (click)="decCart()" class="btn btn-dark" [disabled]="cartModel.quantity===1">
+                    <i class="bi bi-dash"></i>
+                </button>
+            </div>
+            <button (click)="deleteCart()" class="btn btn-danger">
+                <i class="bi bi-trash "></i>
+            </button>
+        </div>
+    </div>
+</div>

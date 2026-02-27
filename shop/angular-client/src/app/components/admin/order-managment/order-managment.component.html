@@ -1,0 +1,68 @@
+<div class="col-12 col-md-3 mb-3">
+  <div class="card mb-3">
+    <div class="card-body">
+      <div class="px-xl-3">
+        <h5>My Orders</h5>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Destination</th>
+              <th scope="col">Date</th>
+              <th scope="col">Sum</th>
+              <th scope="col">Products</th>
+              <th scope="col">User</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let item of orders.list; let i = index">
+              <tr>
+                <th scope="row">{{i+1 + ((query.page-1)*10 )}}</th>
+                <td>{{item.destination}}</td>
+                <td>{{item.date|timeago}}</td>
+                <td>{{item.sum}}$</td>
+                <td>{{item.items.length}}</td>
+                <td><a [routerLink]="'/profile/' + item.username">{{item.username}}</a></td>
+                <td><select (focus)="previousSelectValue = item.status"
+                    (change)="changeOrderStatus($event,item.id,item.status)" [(ngModel)]="item.status"
+                    class="form-select">
+                    <option *ngFor="let status of statuses">{{status}}</option>
+                  </select></td>
+                <td><button (click)="openOrderIndex = openOrderIndex === i ? -1 : i" class="btn btn-outline"><i
+                      class="bi bi-three-dots"></i></button></td>
+              </tr>
+              <tr *ngIf="openOrderIndex === i">
+                <td colspan="6">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Photo</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Operations</th>
+                      </tr>
+                    </thead>
+                    <tbody class="setCursor">
+                      <tr [routerLink]="['/products/'+product.product.id]" *ngFor="let product of item.items">
+                        <td><img style="height: 50px; padding: 0; margin: auto; display: block;"
+                            [src]="product.product.mainImagePath?product.product.mainImagePath:'assets/product-placeholder.jpg'">
+                        </td>
+                        <td>{{product.product.name}}</td>
+                        <td>{{product.product.price}}$</td>
+                        <td>{{product.quantity}}</td>
+
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+        <ngb-pagination class="d-flex justify-content-center" (pageChange)="getOrders($event)" [pageSize]="10"
+          [collectionSize]="orders.totalCount" [(page)]="query.page" [directionLinks]="true" />
+      </div>
+    </div>
+  </div>

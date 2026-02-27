@@ -1,0 +1,122 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+    <div class="container-fluid ">
+        <a [routerLink]="['/']" class="navbar-brand">
+            <i class="bi bi-shop-window fs-4"></i>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03"
+            aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse " id="navbarsExample03">
+            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                <li class="nav-item">
+                    <a class="nav-link " aria-current="page" [routerLink]="['/']" routerLinkActive="active">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item" *ngIf="!(accountService.currentUser$|async)">
+                    <a class="nav-link " aria-current="page" [routerLink]="['/sign-in']"
+                        routerLinkActive="router-link-active">
+                        Sign-In
+                    </a>
+                </li>
+
+
+
+                <!-- <li class="nav-item" *ngIf="isAdmin">
+                    <a [routerLink]="['/admin']" routerLinkActive="router-link-active" class="nav-link">
+                        Admin
+                    </a>
+                </li> -->
+
+                <li class="nav-item">
+                    <a [routerLink]="['/products']" routerLinkActive="router-link-active" class="nav-link"
+                        aria-disabled="true">
+                        Products
+                    </a>
+                </li>
+
+                <li *appHasRole="['admin']" class="nav-item">
+                    <a [routerLink]="['/admin']" routerLinkActive="router-link-active" class="nav-link"
+                        aria-disabled="true">
+                        Admin
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a [routerLink]="'/profile/'+ username" [queryParams]="{tab:'activity'}"
+                                routerLinkActive="router-link-active" class="dropdown-item">
+                                Orders
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                Another action
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                Something else here
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <i placement="bottom-right" popoverClass="rounded-1" [ngbPopover]="popContent"
+                class="bi bi-bell text-white fs-5 m-2 position-relative">
+                <span
+                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-secondary cart-num">{{notifications.totalCount}}
+                </span>
+            </i>
+
+
+            <ng-template #popContent>
+                <div class="notify-box" (scrolled)="onScrollDown()" (scrolledUp)="onScrollUp()" infiniteScroll
+                    [scrollWindow]="false" style="max-height: 350px; overflow-y:auto;">
+                    <span *ngIf="notifications.list.length === 0" class="fw-bold fs-4 text-danger">Empty</span>
+                    <app-notification-card *ngFor="let n of notifications.list; let index = index"
+                        [notification]="n"></app-notification-card>
+                </div>
+            </ng-template>
+
+            <div style="display: flex; align-items: center;" *ngIf="accountService.currentUser$|async">
+                <div ngbDropdown class="d-inline-block">
+                    <a routerLinkActive="router-link-active" class="nav-link">
+                        <!-- <i class="text-white bi bi-person fs-5"></i> -->
+                        <img ngbDropdownToggle style="height: 23px; border: 2px solid white; margin: 5px;"
+                            [src]="mainPhoto?mainPhoto.url:'assets/user-placeholder.png'" />
+                    </a>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                        <button ngbDropdownItem [routerLink]="['/profile/' + username ]">My Profile</button>
+                        <button ngbDropdownItem class="text-danger" (click)="logout()">Logout<i
+                                class="bi bi-box-arrow-left"></i></button>
+                    </div>
+                </div>
+
+                <!-- <a class="text-white"  (click)="logout()">
+                    <i class="bi bi-box-arrow-right fs-5" ></i>
+                </a> -->
+
+                <a style="margin-left: 3px;" [routerLink]="['/cart']" routerLinkActive="router-link-active">
+                    <i class="bi bi-cart  fs-5 position-relative text-white m-2">
+                        <span
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-secondary cart-num">{{cartService.cartQuantity$|async}}</span>
+                    </i>
+                </a>
+            </div>
+            <!-- <form role="search">
+                <input class="form-control " type="search" placeholder="Search" aria-label="Search" />
+            </form> -->
+        </div>
+
+
+    </div>
+</nav>

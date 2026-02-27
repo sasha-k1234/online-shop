@@ -1,0 +1,8 @@
+.setCursor:hover {
+  cursor: pointer;
+}
+
+.setCursor:hover > :not(:hover) {
+  opacity: 0.5;
+}
+

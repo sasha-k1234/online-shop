@@ -1,0 +1,56 @@
+<div class="container mt-5 ">
+  <div class="card mx-auto" style="width: 25rem">
+    <div class="card-body">
+      <h4 class="card-title text-center">Product</h4>
+      <form [formGroup]="form">
+        <app-text-field label="Title" [formControl]="form.controls.title"></app-text-field>
+        <div class="mb-3">
+          <label for="input2" class="form-label">
+            Description
+          </label>
+          <ckeditor (change)="onChange($event)" [editor]="Editor" [config]="config" name="description">
+          </ckeditor>
+        </div>
+        <app-text-field label="Price" type="number" [formControl]="form.controls.price"></app-text-field>
+        <div class="row">
+          <div class="col  mb-3">
+            <label for="input3" class="form-label">
+              Category
+            </label>
+            <select name="category" [formControl]="form.controls.category" class="form-select">
+              <option selected disabled [ngValue]="undefined">Choose</option>
+
+              <option *ngFor="let item of categoryArr" [ngValue]="item.id">{{item.name}}</option>
+
+            </select>
+          </div>
+          <div class="col-1 position-relative">
+            <button class="btn btn-dark btn-center" (click)="openCategoryCreateModal()">+</button>
+
+          </div>
+        </div>
+        <div class=" text-start text-danger" *ngIf="form.controls.category.touched&&form.controls.category.errors?.['required']">
+          required
+        </div>
+
+        <div class="mb-4">
+          <label for="input3" class="form-label">
+            Photo
+          </label>
+          <input [formControl]="form.controls.photo"  type="file" class="form-control" (change)="fileChange($event)" />
+          <div class=" text-start text-danger" *ngIf="form.controls.photo.touched&&form.controls.photo.errors?.['required']">
+            required
+          </div>
+        </div>
+        <div class="mb-4">
+          <label class="form-label">Editor</label>
+          <button class="btn btn-dark form-control"
+            (click)="openEditor()">{{productModel.features?'Open':'Create'}}</button>
+        </div>
+        <button [disabled]="!form.valid" (click)="addProduct()" type="submit" class="btn btn-dark w-100">
+          Add Product
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+.disabled{
+    opacity: 0.5;
+    transition: 0.5s;
+}
+
+.active{
+    opacity: 1;
+    transition: 0.5s;
+}

@@ -1,0 +1,7 @@
+<div class="comment">
+
+    {{comment.userName}}
+    {{comment.text}}
+    {{comment.date}}
+    <app-comment *ngFor="let comment of comment.childrenComments" [comment]="comment"></app-comment>
+</div>

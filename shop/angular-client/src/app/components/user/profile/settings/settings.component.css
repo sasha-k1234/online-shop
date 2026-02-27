@@ -1,0 +1,14 @@
+body{
+    margin-top:20px;
+    background:#f8f8f8
+}
+
+.password-btn{
+    position: absolute;
+    top: 25px;
+    right: 5px;
+}
+
+.container-password{
+    position: relative;
+}

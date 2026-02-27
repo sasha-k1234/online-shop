@@ -1,0 +1,20 @@
+<div>
+        <canvas
+          baseChart
+          [data]="pieChartData"
+          [type]="pieChartType"
+          [options]="pieChartOptions"
+        >
+        </canvas>
+        
+        <canvas
+        baseChart
+        [data]="barChartData"
+        [options]="barChartOptions"
+        [type]="barChartType"
+        >
+        <!-- (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)" -->
+      </canvas>
+    
+</div>

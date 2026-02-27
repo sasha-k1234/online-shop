@@ -1,0 +1,38 @@
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Header</th>
+                <th scope="col">Types</th>
+                <th scope="col">Directs</th>
+                <th scope="col">Read-at</th>
+                <th scope="col">Created-at</th>
+                <th scope="col">Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let n of notifications.list;let i = index">
+                <th [ngClass]="{'availible': !n.is_available}">{{ i + 1 }}</th>
+                <td>{{n.header}}</td>
+                <td><span *ngFor="let t of n.types">
+                        {{t.name}}
+                    </span></td>
+                <td>{{!n.direct?'everyone':n.direct}}</td>
+                <td>
+                    <ng-template #tipContent>{{ n.read_at|date:'dd.MM.yy hh:mm' }}</ng-template>
+                    <span placement="top" [ngbTooltip]="tipContent">
+                        {{n.read_at?(n.read_at|timeago):'null'}}
+                    </span>
+                </td>
+                <td>{{n.created_at|date:'dd.MM.yy hh:mm'}}</td>
+                <td>
+                    <button *ngIf="!n.is_available" class="btn btn-secondary"
+                        (click)="makeAvailable(n.id)">Available</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <ngb-pagination (pageChange)="changePage($event)" class="d-flex justify-content-center" [(page)]="query.page"
+        [pageSize]="query.perPage" [collectionSize]="notifications.totalCount" />
+</div>

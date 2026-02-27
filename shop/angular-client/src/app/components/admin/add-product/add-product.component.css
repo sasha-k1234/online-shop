@@ -1,0 +1,14 @@
+.btn-center{
+    position: absolute;
+    top: 58%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+}
+
+select.ng-touched.ng-invalid{
+    border: solid red 2px ;
+}
+
+select.ng-touched.ng-valid{
+    border: solid green 2px ;
+}

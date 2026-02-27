@@ -1,0 +1,14 @@
+.orderBtn{
+    position: absolute;
+    top: 80px;
+    right:45px;
+    opacity: 0.3;
+    transition: linear 0.3s;
+}
+
+.orderBtn:hover{
+    opacity: 1;
+    transition: linear 0.3s;
+
+}
+

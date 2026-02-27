@@ -1,0 +1,12 @@
+<div class="container mt-3">
+
+    <app-product-filter [query]="query" (findClick)="getProducts()"></app-product-filter>
+
+    <div class="row align-items-center">
+    </div>
+    <div class="setCursor" style="display: flex; justify-content: center;" *ngFor="let item of list">
+        <app-product-card class="mt-3 " [productModel]="item"></app-product-card>
+    </div>
+    <ngb-pagination class="d-flex justify-content-center mt-2" [pageSize]="5" [collectionSize]="totalCount"
+        [(page)]="query.page" (pageChange)="getProducts()" />
+</div>

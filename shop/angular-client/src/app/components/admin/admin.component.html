@@ -1,0 +1,44 @@
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" (activeIdChange)="pageChange($event)" class="nav-tabs">
+	<li [ngbNavItem]="'addProduct'">
+		<button ngbNavLink>Add Product</button>
+		<ng-template ngbNavContent>
+			<app-add-product></app-add-product>
+		</ng-template>
+	</li>
+	<li [ngbNavItem]="'allProducts'">
+		<button ngbNavLink>Products</button>
+		<ng-template ngbNavContent>
+			<app-product-list></app-product-list>
+		</ng-template>
+	</li>
+	<li [ngbNavItem]="'analytics'">
+		<button ngbNavLink>Analytics</button>
+		<ng-template ngbNavContent>
+			<app-analytics></app-analytics>
+		</ng-template>
+	</li>
+
+	<li [ngbNavItem]="'notification'">
+		<button ngbNavLink>Notificaton</button>
+		<ng-template ngbNavContent>
+			<app-notification></app-notification>
+		</ng-template>
+	</li>
+
+	<li [ngbNavItem]="'orders'">
+		<button ngbNavLink>Orders</button>
+		<ng-template ngbNavContent>
+			<app-order-managment></app-order-managment>
+		</ng-template>
+	</li>
+	<!-- <li [ngbNavItem]="3">
+		<button ngbNavLink>Three</button>
+		<ng-template ngbNavContent>
+			<p>
+				dsa
+			</p>
+		</ng-template>
+	</li> -->
+</ul>
+
+<div [ngbNavOutlet]="nav" class="mt-2"></div>
