@@ -14,10 +14,10 @@ const {getSignedUrl} = new require('@aws-sdk/s3-request-presigner');
 
 const { Readable } = require("stream");
 const s3Client = new S3Client({
-  region: "eu-north-1",
+  region:process.env.aws_region ,
   credentials: {
-    accessKeyId: "AKIA34AMCXGSDUZMAVN2",
-    secretAccessKey: "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",
+    accessKeyId:process.env.aws_accessKeyId ,
+    secretAccessKey:process.env.aws_secretAccessKey ,
   },
 });
 
